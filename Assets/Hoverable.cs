@@ -7,13 +7,15 @@ using UnityEngine;
 public class Hoverable : MonoBehaviour
 {
     public Canvas canvas;
-    public RectTransform rectTransform;
+    public RectTransform rectTransform; 
+    protected RectTransform rectTransform2;
     private Tween enterTween;
     private Tween exitTween;
     private int ogSortingOrder;
 
     private IEnumerator Start()
     {
+        rectTransform2 = GetComponent<RectTransform>();
         yield return new WaitForSeconds(0.1f);
         ogSortingOrder = canvas.sortingOrder;
     }

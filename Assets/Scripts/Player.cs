@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public int playerHealth;
+    public int maxHealth;
     public int cardsToDrawStartOfRound;
-
 
     public RectTransform deckParent;
     public List<GameObject> defenseCardsInDeck = new List<GameObject>();
@@ -16,18 +19,17 @@ public class Player : MonoBehaviour
 
     public List<GameObject> defenseCardsInDeckForRound = new List<GameObject>();
     public List<GameObject> attackCardsInDeckForRound = new List<GameObject>();
-
+    
+    public AttackCard activeAttackCard;
+    public DefensiveCard activeDefenseCard;
+    public Slider healthBar;
+    public TMP_Text healthBarText;
+    
     private int cardsAdded=1;
     // Start is called before the first frame update
-    IEnumerator Start()
-    {
-
-        yield return new WaitForSeconds(1);
-        StartCoroutine(StartRound());
-    }
-
     public IEnumerator StartRound()
     {
+ 
         //shuffle cards in deck and assign to cards inDeckForRound
         attackCardsInDeckForRound = attackCardsInDeck.OrderBy( x => Random.value ).ToList();
         defenseCardsInDeckForRound = defenseCardsInDeck.OrderBy( x => Random.value ).ToList();
@@ -37,11 +39,11 @@ public class Player : MonoBehaviour
             GameObject cardInstance;
             if (i<cardsToDrawStartOfRound/2)
             {
-                cardInstance = Instantiate(attackCardsInDeckForRound[i], deckParent.anchoredPosition3D, Quaternion.identity, deckParent);
+                cardInstance = Instantiate(defenseCardsInDeck[i], deckParent.anchoredPosition3D, Quaternion.identity, deckParent);
             }
             else
             {
-                cardInstance = Instantiate(defenseCardsInDeck[i-(cardsToDrawStartOfRound/2)], deckParent.anchoredPosition3D, Quaternion.identity, deckParent);
+                cardInstance = Instantiate(attackCardsInDeck[i-(cardsToDrawStartOfRound/2)], deckParent.anchoredPosition3D, Quaternion.identity, deckParent);
             }
             RectTransform cardRect = cardInstance.GetComponent<RectTransform>();
             cardRect.anchoredPosition3D =
@@ -66,7 +68,6 @@ public class Player : MonoBehaviour
 
     public void AddCardToHand(GameObject card)
     {
-
         GameObject cardInstance = Instantiate(card, deckParent.anchoredPosition3D, Quaternion.identity, deckParent);
         RectTransform cardRect = cardInstance.GetComponent<RectTransform>();
         cardRect.anchoredPosition3D =
@@ -75,6 +76,13 @@ public class Player : MonoBehaviour
         cardInstance.GetComponent<Canvas>().sortingOrder = cardsAdded;
         cardsAdded++;
         cardsInHand.Add(cardInstance);
+    }
+
+    public void TakeDamage(int toTake)
+    {
+        playerHealth -= toTake;
+        healthBar.value = playerHealth;
+        healthBarText.text = playerHealth + "/" + maxHealth;
     }
     
 }
