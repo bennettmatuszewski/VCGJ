@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
     [Header("Instances")] 
     public Player player;
+    public ShopPanel shopPanel;
     public RectTransform gameContent;
     public RectTransform attackSlot;
     public RectTransform defenseSlot;
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     public RectTransform enemyAttackPos;
     public RectTransform enemySpawnLocation;
     public RectTransform enemyParent;
+    public RectTransform endTurnButton;
     public GameObject discardAttackButton;
     public GameObject discardDefenseButton;
     [HideInInspector]public RectTransform discardAttackButtonRect;
@@ -35,12 +37,16 @@ public class GameManager : MonoBehaviour
     private int minEnemies;
 
     [HideInInspector] public bool canHoverCard;
+    public bool canEndTurn;
+    public bool canDrawCard;
+    public bool canPlayCard;
 
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
         discardAttackButtonRect = discardAttackButton.GetComponent<RectTransform>();
         discardDefenseButtonRect = discardDefenseButton.GetComponent<RectTransform>();
+        yield return new WaitForSeconds(0.5f);
         StartCoroutine(StartRound());
     }
 
@@ -90,12 +96,18 @@ public class GameManager : MonoBehaviour
     }
     public void EndTurn(Animator animator)
     {
-        StartCoroutine(EndTurnCo(animator));
+        if (canEndTurn)
+        {
+            canEndTurn = false;
+            StartCoroutine(EndTurnCo(animator));
+        }
     }
 
     private IEnumerator EndTurnCo(Animator animator)
     {
-
+        animator.SetTrigger("Press");
+        yield return new WaitForSeconds(.25f);
+        endTurnButton.DOScale(Vector3.zero, .25f).SetEase(Ease.OutQuad);
         foreach (var card in FindObjectsByType<Card>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
         {
             if (card!=player.activeAttackCard && card!= player.activeDefenseCard)
@@ -103,7 +115,6 @@ public class GameManager : MonoBehaviour
                card.EndedTurn();
             }
         }
-        animator.SetTrigger("Press");
         if (player.activeAttackCard!=null)
         {
             player.activeAttackCard.Attack();
@@ -114,6 +125,14 @@ public class GameManager : MonoBehaviour
         {
             currentEnemy[i].StartCoroutine("Attack");
             yield return new WaitForSeconds(0.25f);
+        }
+
+        yield return new WaitForSeconds(1);
+        canDrawCard = true;
+        canPlayCard = true;
+        if (player.defenseCardsInDeckForRound.Count<=0 && player.attackCardsInDeckForRound.Count<=0)
+        {
+            player.gameManager.StartCoroutine("EndTurnButton");
         }
     }
 
@@ -150,8 +169,17 @@ public class GameManager : MonoBehaviour
         discardAttackButton.SetActive(false);
     }
 
-    public void CompletedRound()
+    public IEnumerator CompletedRound()
     {
-        
+        canEndTurn = false;
+        yield return new WaitForSeconds(1.5f);
+        shopPanel.EnterShop();
     }
+    
+    public IEnumerator EndTurnButton()
+    {
+        endTurnButton.DOScale(Vector3.one*1.25f, .25f).SetEase(Ease.OutBack);
+        yield return new WaitForSeconds(.25f);
+        canEndTurn = true;
+    } 
 }

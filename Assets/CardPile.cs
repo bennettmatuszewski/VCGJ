@@ -5,10 +5,16 @@ using UnityEngine;
 public class CardPile : Hoverable
 {
     public Player player;
-
+    
     public bool attackPile;
     public void DrawCard()
     {
+        if (!player.gameManager.canDrawCard)
+        {
+            return;
+        }
+        player.gameManager.canPlayCard = false;
+        player.gameManager.canDrawCard = false;
         if (attackPile)
         {
             if (player.attackCardsInDeckForRound.Count>0)
@@ -26,5 +32,8 @@ public class CardPile : Hoverable
             }
         }
 
+        player.gameManager.StartCoroutine("EndTurnButton");
+
     }
+    
 }

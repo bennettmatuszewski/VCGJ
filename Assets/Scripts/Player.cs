@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,6 +6,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Player : MonoBehaviour
 {
@@ -20,13 +22,16 @@ public class Player : MonoBehaviour
     public List<GameObject> defenseCardsInDeckForRound = new List<GameObject>();
     public List<GameObject> attackCardsInDeckForRound = new List<GameObject>();
     
+    public GameManager gameManager;
     public AttackCard activeAttackCard;
     public DefensiveCard activeDefenseCard;
     public Slider healthBar;
     public TMP_Text healthBarText;
+    public DeathManager deathManager;
     
     private int cardsAdded=1;
     // Start is called before the first frame update
+    
     public IEnumerator StartRound()
     {
  
@@ -64,6 +69,8 @@ public class Player : MonoBehaviour
         
         attackCardsInDeckForRound.RemoveRange(0,cardsToDrawStartOfRound/2);
         defenseCardsInDeckForRound.RemoveRange(0,cardsToDrawStartOfRound/2);
+        gameManager.canPlayCard = true;
+        gameManager.canDrawCard = true;
     }
 
     public void AddCardToHand(GameObject card)
@@ -80,9 +87,41 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int toTake)
     {
+        gameManager.gameContent.DOShakePosition(0.25f, Vector3.one * 15, 20, 90);
         playerHealth -= toTake;
+        if (playerHealth<0)
+        {
+            playerHealth = 0;
+        }
         healthBar.value = playerHealth;
         healthBarText.text = playerHealth + "/" + maxHealth;
+        if (playerHealth==0)
+        {
+            deathManager.anim.SetTrigger("Start");
+        }
+    }
+
+    public void ResetAll()
+    {
+        attackCardsInDeckForRound.Clear();
+        defenseCardsInDeckForRound.Clear();
+        cardsInHand.Clear();
+        if (activeAttackCard!=null)
+        {
+            Destroy(activeAttackCard);
+        }
+        if (activeDefenseCard!=null)
+        { Destroy(activeDefenseCard);
+            
+        }
+        foreach (var card in FindObjectsByType<Card>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
+        {
+            if (card.transform.parent.name!="ShopCard")
+            {
+                Destroy(card.transform.parent.gameObject);   
+            }
+        }
+        
     }
     
 }

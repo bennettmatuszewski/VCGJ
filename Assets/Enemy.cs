@@ -45,8 +45,8 @@ public class Enemy : MonoBehaviour
         
         
         yield return new WaitForSeconds(0.5f);
-        rectTransform.DOAnchorPos(spawnPosition.anchoredPosition, .75f).SetEase(Ease.InOutQuad);
-        rectTransform.DORotate(new Vector3(0, 0, 0), .75f).SetEase(Ease.InOutQuad).OnComplete(()=> canvas.sortingOrder = 1);
+        rectTransform.DOAnchorPos(spawnPosition.anchoredPosition, .5f).SetEase(Ease.InOutQuad);
+        rectTransform.DORotate(new Vector3(0, 0, 0), .5f).SetEase(Ease.InOutQuad).OnComplete(()=> canvas.sortingOrder = 1);
         
     }
 
@@ -63,7 +63,10 @@ public class Enemy : MonoBehaviour
             rectTransform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.OutQuad);
             gameManager.currentEnemy.Remove(this);
             //NEXT ROUND
-            gameManager.CompletedRound();
+            if (gameManager.currentEnemy.Count==0)
+            {
+                gameManager.StartCoroutine("CompletedRound");   
+            }
         }
     }
 

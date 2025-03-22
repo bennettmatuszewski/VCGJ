@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class DefensiveCard : Card
 {
@@ -23,23 +24,44 @@ public class DefensiveCard : Card
 
     IEnumerator Die()
     {
+        GetComponent<EventTrigger>().enabled = false;
         rectTransform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.OutQuad);
         gameManager.player.activeDefenseCard = null;
         yield return new WaitForSeconds(0.25f);
+        Destroy(gameObject);
     }
     public override void PlayCard()
     {
-        if (player.activeDefenseCard ==null && !hasBeenPlayed)
+        if(hasBeenPlayed&& !gameManager.discardDefenseButton.activeInHierarchy)
         {
-            rectTransform.SetParent(gameManager.defenseSlot);
-            rectTransform.DOAnchorPos(gameManager.defenseSlotPos.anchoredPosition, 0.35f).SetEase(Ease.OutQuad);
-            player.activeDefenseCard = this;    
-            hasBeenPlayed = true;
-        }
-        else if(hasBeenPlayed)
-        {
+            gameManager.discardAttackButton.SetActive(false);
+            gameManager.discardAttackButtonRect.DOScale(Vector3.zero, 0f);
             gameManager.discardDefenseButton.SetActive(true);
             gameManager.discardDefenseButtonRect.DOScale(Vector3.one * 1.25f, 0.25f).SetEase(Ease.InOutBack);
         }
+        else if(hasBeenPlayed && gameManager.discardDefenseButton.activeInHierarchy)
+        {
+            gameManager.discardDefenseButtonRect.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InOutBack).OnComplete(()=>gameManager.discardDefenseButton.SetActive(false));
+        }
+        
+        if (!gameManager.canPlayCard || player.activeDefenseCard!=null)
+        {
+            return;
+        }
+
+        gameManager.canPlayCard = false;
+        gameManager.canDrawCard = false;
+        if (player.activeDefenseCard ==null && !hasBeenPlayed)
+        {
+            rectTransform.SetParent(gameManager.defenseSlot);
+            rectTransform.DOAnchorPos(gameManager.defenseSlotPos.anchoredPosition, 0.35f).SetEase(Ease.OutQuad).OnComplete(()=> EndScreenButton());
+            player.activeDefenseCard = this;    
+            hasBeenPlayed = true;
+        }
+    }
+    void EndScreenButton()
+    {
+        gameManager.endTurnButton.DOScale(Vector3.one * 1.25f, .25f).SetEase(Ease.OutBack)
+            .OnComplete(() => gameManager.canEndTurn = true);
     }
 }

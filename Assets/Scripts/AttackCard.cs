@@ -26,25 +26,43 @@ public class AttackCard : Card
             gameManager.currentEnemy[i].TakeDamage(attackDamage);
         
             yield return new WaitForSeconds(0.5f);
-            rectTransform.DOAnchorPos(gameManager.attackSlotPos.anchoredPosition, .75f).SetEase(Ease.InOutQuad);
-            rectTransform.DORotate(new Vector3(0, 0, 0), .75f).SetEase(Ease.InOutQuad);   
+            rectTransform.DOAnchorPos(gameManager.attackSlotPos.anchoredPosition, .5f).SetEase(Ease.InOutQuad);
+            rectTransform.DORotate(new Vector3(0, 0, 0), .5f).SetEase(Ease.InOutQuad);   
         }
     }
     public override void PlayCard()
     {
+        if(hasBeenPlayed && !gameManager.discardAttackButton.activeInHierarchy)
+        {
+            gameManager.discardDefenseButton.SetActive(false);
+            gameManager.discardDefenseButtonRect.DOScale(Vector3.zero, 0f);
+            gameManager.discardAttackButton.SetActive(true);
+            gameManager.discardAttackButtonRect.DOScale(Vector3.one * 1.25f, 0.25f).SetEase(Ease.InOutBack);
+        }
+        else if(hasBeenPlayed && gameManager.discardAttackButton.activeInHierarchy)
+        {
+            gameManager.discardAttackButtonRect.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InOutBack).OnComplete(()=>gameManager.discardAttackButton.SetActive(false));
+        }
+        
+        if (!gameManager.canPlayCard || player.activeAttackCard!=null)
+        {
+            return;
+        }
+        gameManager.canPlayCard = false;
+        gameManager.canDrawCard = false;
         if (player.activeAttackCard ==null && !hasBeenPlayed)
         {
             rectTransform.SetParent(gameManager.attackSlot);
-            rectTransform.DOAnchorPos(gameManager.attackSlotPos.anchoredPosition, 0.35f).SetEase(Ease.OutQuad);
+            rectTransform.DOAnchorPos(gameManager.attackSlotPos.anchoredPosition, 0.35f).SetEase(Ease.OutQuad).OnComplete(()=> EndScreenButton());
             player.activeAttackCard = this;
             hasBeenPlayed = true;
             player.cardsInHand.Remove(gameObject);
         }
-        else if(hasBeenPlayed)
-        {
-            gameManager.discardAttackButton.SetActive(true);
-            gameManager.discardAttackButtonRect.DOScale(Vector3.one * 1.25f, 0.25f).SetEase(Ease.InOutBack);
-        }
     }
-    
+
+    void EndScreenButton()
+    {
+        gameManager.endTurnButton.DOScale(Vector3.one * 1.25f, .25f).SetEase(Ease.OutBack)
+            .OnComplete(() => gameManager.canEndTurn = true);
+    }
 }
