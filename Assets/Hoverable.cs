@@ -12,7 +12,7 @@ public class Hoverable : MonoBehaviour
     private Tween enterTween;
     private Tween exitTween;
     private int ogSortingOrder;
-
+    public bool isCardPile;
     private IEnumerator Start()
     {
         rectTransform2 = GetComponent<RectTransform>();
@@ -27,7 +27,14 @@ public class Hoverable : MonoBehaviour
             exitTween.Kill();
         }
         enterTween = rectTransform.DOScale(new Vector3(1.25f, 1.25f, 1.25f), 0.15f).SetEase(Ease.InOutBack);
-        canvas.sortingOrder = 100;
+        if (isCardPile)
+        {
+            canvas.sortingOrder = 104;
+        }
+        else
+        {
+            canvas.sortingOrder = 100;
+        }
     }
 
     public void HoverExit()

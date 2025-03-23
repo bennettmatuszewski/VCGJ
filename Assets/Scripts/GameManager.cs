@@ -33,8 +33,10 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Logic")] 
     public int round;
+    
 
     private int minEnemies;
+    private int maxEnemies;
 
     [HideInInspector] public bool canHoverCard;
     public bool canEndTurn;
@@ -48,12 +50,17 @@ public class GameManager : MonoBehaviour
         discardDefenseButtonRect = discardDefenseButton.GetComponent<RectTransform>();
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(StartRound());
+        maxEnemies = 2;
     }
 
     public IEnumerator StartRound()
     {
         roundText.text = "round " +(round+1) + "/15";
         roundAnim.SetTrigger("Start");
+        if (round%2==0 && maxEnemies<6)
+        {
+            maxEnemies++;
+        }
         if (round>3)
         {
             minEnemies++;
@@ -85,7 +92,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpawnEnemy(int posIndex)
     {
-        GameObject enemy = Instantiate(possibleEnemies[Random.Range(minEnemies, round+2)], enemySpawnLocation.anchoredPosition3D, Quaternion.identity, enemyParent);
+        
+        GameObject enemy = Instantiate(possibleEnemies[Random.Range(minEnemies, maxEnemies)], enemySpawnLocation.anchoredPosition3D, Quaternion.identity, enemyParent);
         enemy.GetComponent<Enemy>().spawnPosition = enemySpawnLocations[posIndex];
         //enemy.GetComponent<RectTransform>().parent = enemyParent;
         enemy.GetComponent<RectTransform>().anchoredPosition3D =
@@ -120,11 +128,9 @@ public class GameManager : MonoBehaviour
             player.activeAttackCard.Attack();
             yield return new WaitForSeconds(1.75f);
         }
-
-        for (int i = 0; i < currentEnemy.Count; i++)
+        else
         {
-            currentEnemy[i].StartCoroutine("Attack");
-            yield return new WaitForSeconds(0.25f);
+            StartCoroutine(EnemiesAttack());
         }
 
         yield return new WaitForSeconds(1);
@@ -136,6 +142,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public IEnumerator EnemiesAttack()
+    {
+        for (int i = 0; i < currentEnemy.Count; i++)
+        {
+            if (currentEnemy[i].health>0)
+            {
+                currentEnemy[i].StartCoroutine("Attack");
+                yield return new WaitForSeconds(0.25f);   
+            }
+        }   
+    }
     public void DiscardDefenseCard(Animator animator)
     {
         StartCoroutine(DiscardDefenseCardCo(animator));

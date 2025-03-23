@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 public class CardPile : Hoverable
 {
     public Player player;
-    
+    public Sprite altSprite;
+    public Image image;
     public bool attackPile;
     public void DrawCard()
     {
@@ -21,6 +24,10 @@ public class CardPile : Hoverable
             {
                 player.AddCardToHand(player.attackCardsInDeckForRound[0]);
                 player.attackCardsInDeckForRound.RemoveAt(0);
+                if (player.attackCardsInDeckForRound.Count==0)
+                {
+                    image.sprite = altSprite;
+                }
             }
         }
         else
@@ -29,11 +36,20 @@ public class CardPile : Hoverable
             {
                 player.AddCardToHand(player.defenseCardsInDeckForRound[0]);
                 player.defenseCardsInDeckForRound.RemoveAt(0);
+                if (player.defenseCardsInDeckForRound.Count==0)
+                {
+                    image.sprite = altSprite;
+                }
             }
         }
-
+        
         player.gameManager.StartCoroutine("EndTurnButton");
 
+    }
+
+    public void UpdateSprite()
+    {
+        image.sprite = altSprite;
     }
     
 }

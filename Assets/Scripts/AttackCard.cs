@@ -7,7 +7,6 @@ public class AttackCard : Card
 {
     public int attackDamage;
     
-    
     public virtual void Attack()
     {
         StartCoroutine(AttackCo());
@@ -15,6 +14,8 @@ public class AttackCard : Card
 
     IEnumerator AttackCo()
     {
+
+        List<Enemy> deadEnemies = new List<Enemy>();
         for (int i = 0; i < gameManager.currentEnemy.Count; i++)
         {
             RectTransform rect = gameManager.currentEnemy[i].GetComponent<RectTransform>();
@@ -24,10 +25,27 @@ public class AttackCard : Card
             rectTransform.DOShakePosition(0.25f, Vector3.one * 15, 20, 90);
         
             gameManager.currentEnemy[i].TakeDamage(attackDamage);
+            if (gameManager.currentEnemy[i].health<=0)
+            {
+                deadEnemies.Add(gameManager.currentEnemy[i]);
+            }
         
             yield return new WaitForSeconds(0.5f);
             rectTransform.DOAnchorPos(gameManager.attackSlotPos.anchoredPosition, .5f).SetEase(Ease.InOutQuad);
-            rectTransform.DORotate(new Vector3(0, 0, 0), .5f).SetEase(Ease.InOutQuad);   
+            rectTransform.DORotate(new Vector3(0, 0, 0), .5f).SetEase(Ease.InOutQuad);
+        }
+        
+        for (int i = 0; i < deadEnemies.Count; i++)
+        {
+            gameManager.currentEnemy.Remove(deadEnemies[i]);  
+        }
+        if (gameManager.currentEnemy.Count==0)
+        {
+            gameManager.StartCoroutine("CompletedRound");   
+        }
+        else
+        {
+            gameManager.StartCoroutine("EnemiesAttack");
         }
     }
     public override void PlayCard()

@@ -26,7 +26,18 @@ public class ShopPanel : MonoBehaviour
 
     public void ChooseUpgrade()
     {
-        
+        if (cantChoose)
+        {
+            return;
+        }
+        cantChoose = true;
+        GameObject chosen = upgrades[Random.Range(0, upgrades.Length)];
+        GameObject card = Instantiate(chosen, new Vector3(5, recttransform.anchoredPosition.y-300), Quaternion.identity, recttransform);
+        card.GetComponent<RectTransform>().anchoredPosition3D =
+            new Vector3(5, recttransform.anchoredPosition3D.y-300, 0);
+        card.GetComponent<Canvas>().sortingOrder = 105;
+        card.GetComponent<RectTransform>().DOScale(Vector3.one*2.5f, 0.35f).SetEase(Ease.OutBack);
+        cardRef = card;
     }
 
     public void ChooseDefense()
@@ -38,9 +49,9 @@ public class ShopPanel : MonoBehaviour
 
         cantChoose = true;
         GameObject chosen = defenseCards[Random.Range(0, attackCards.Length)];
-        GameObject card = Instantiate(chosen, new Vector3(0, recttransform.anchoredPosition.y-300), Quaternion.identity, recttransform);
+        GameObject card = Instantiate(chosen, new Vector3(50, recttransform.anchoredPosition.y-300), Quaternion.identity, recttransform);
         card.GetComponent<RectTransform>().anchoredPosition3D =
-            new Vector3(0, recttransform.anchoredPosition3D.y-300, 0);
+            new Vector3(50, recttransform.anchoredPosition3D.y-300, 0);
         card.GetComponent<Canvas>().sortingOrder = 105;
         card.GetComponent<RectTransform>().DOScale(Vector3.one*2.5f, 0.35f).SetEase(Ease.OutBack);
         card.transform.GetChild(0).GetComponent<EventTrigger>().enabled = false;
@@ -58,9 +69,9 @@ public class ShopPanel : MonoBehaviour
 
         cantChoose = true;
         GameObject chosen = attackCards[Random.Range(0, attackCards.Length)];
-        GameObject card = Instantiate(chosen, new Vector3(0, recttransform.anchoredPosition.y-300), Quaternion.identity, recttransform);
+        GameObject card = Instantiate(chosen, new Vector3(50, recttransform.anchoredPosition.y-300), Quaternion.identity, recttransform);
         card.GetComponent<RectTransform>().anchoredPosition3D =
-            new Vector3(0, recttransform.anchoredPosition3D.y-300, 0);
+            new Vector3(50, recttransform.anchoredPosition3D.y-300, 0);
         card.GetComponent<Canvas>().sortingOrder = 105;
         card.GetComponent<RectTransform>().DOScale(Vector3.one*2.5f, 0.35f).SetEase(Ease.OutBack);
         card.transform.GetChild(0).GetComponent<EventTrigger>().enabled = false;
@@ -76,6 +87,7 @@ public class ShopPanel : MonoBehaviour
     }
     public void EnterShop()
     {
+        cantChoose = false;
         anim.SetTrigger("Enter");
     }
 
@@ -91,6 +103,13 @@ public class ShopPanel : MonoBehaviour
         player.ResetAll();
         yield return new WaitForSeconds(1.5f);
         gameManager.round++;
-        gameManager.StartCoroutine("StartRound");
+        if (gameManager.round==15)
+        {
+            FindObjectOfType<LevelLoader>().LoadCertainScene("Win");
+        }
+        else
+        {
+            gameManager.StartCoroutine("StartRound");
+        }
     }
 }

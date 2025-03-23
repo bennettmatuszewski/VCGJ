@@ -19,6 +19,6 @@ public class DeathManager : MonoBehaviour
     public void HomeScreen(Animator animator)
     {
         animator.SetTrigger("Press");
-        levelLoader.LoadCertainScene("StartScreen");
+        levelLoader.LoadCertainScene("Start");
     }
 }

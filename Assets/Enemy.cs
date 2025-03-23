@@ -61,12 +61,7 @@ public class Enemy : MonoBehaviour
         if (health<=0)
         {
             rectTransform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.OutQuad);
-            gameManager.currentEnemy.Remove(this);
             //NEXT ROUND
-            if (gameManager.currentEnemy.Count==0)
-            {
-                gameManager.StartCoroutine("CompletedRound");   
-            }
         }
     }
 

@@ -140,7 +140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5
+  m_text: 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 70471d0e51f99d84d9122727f4902ec3, type: 2}
   m_sharedMaterial: {fileID: -8234370761623016165, guid: 70471d0e51f99d84d9122727f4902ec3, type: 2}
@@ -438,10 +438,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1202831a3768c954e8d0c2e974f69f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPosition: {fileID: 0}
   healthText: {fileID: 8708107482022628068}
   attackText: {fileID: 1412734701951247930}
-  health: 5
-  attack: 5
+  health: 3
+  attack: 2
 --- !u!223 &4702758070246725059
 Canvas:
   m_ObjectHideFlags: 0
@@ -530,7 +531,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5
+  m_text: 3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 70471d0e51f99d84d9122727f4902ec3, type: 2}
   m_sharedMaterial: {fileID: -8234370761623016165, guid: 70471d0e51f99d84d9122727f4902ec3, type: 2}
