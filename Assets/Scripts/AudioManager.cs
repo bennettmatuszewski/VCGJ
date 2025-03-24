@@ -44,6 +44,7 @@ public class AudioManager : MonoBehaviour
             sound.source.loop = sound.isLoop;
 
         }
+        DontDestroyOnLoad(this.gameObject);
         //Debug.Log(Array.FindIndex(sounds, s => s.name == "slimeHit"));
         
     }

@@ -98,7 +98,7 @@ MonoBehaviour:
   healthText: {fileID: 3232744936492686758}
   attackText: {fileID: 5795920233418668099}
   health: 7
-  attack: 2
+  attack: 1
 --- !u!223 &9091034538947643522
 Canvas:
   m_ObjectHideFlags: 0
@@ -421,7 +421,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2
+  m_text: '1
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 70471d0e51f99d84d9122727f4902ec3, type: 2}
   m_sharedMaterial: {fileID: -8234370761623016165, guid: 70471d0e51f99d84d9122727f4902ec3, type: 2}
@@ -489,9 +491,9 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 5795920233418668099}
-    characterCount: 1
+    characterCount: 2
     spriteCount: 0
-    spaceCount: 0
+    spaceCount: 1
     wordCount: 1
     linkCount: 0
     lineCount: 1

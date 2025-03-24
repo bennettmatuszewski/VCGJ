@@ -52,6 +52,7 @@ public class AttackCard : Card
     {
         if(hasBeenPlayed && !gameManager.discardAttackButton.activeInHierarchy)
         {
+            AudioManager.instance.Play("playCard");
             gameManager.discardDefenseButton.SetActive(false);
             gameManager.discardDefenseButtonRect.DOScale(Vector3.zero, 0f);
             gameManager.discardAttackButton.SetActive(true);
@@ -66,10 +67,9 @@ public class AttackCard : Card
         {
             return;
         }
-        gameManager.canPlayCard = false;
-        gameManager.canDrawCard = false;
         if (player.activeAttackCard ==null && !hasBeenPlayed)
         {
+            AudioManager.instance.Play("playCard");
             rectTransform.SetParent(gameManager.attackSlot);
             rectTransform.DOAnchorPos(gameManager.attackSlotPos.anchoredPosition, 0.35f).SetEase(Ease.OutQuad).OnComplete(()=> EndScreenButton());
             player.activeAttackCard = this;

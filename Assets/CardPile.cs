@@ -8,6 +8,7 @@ public class CardPile : Hoverable
 {
     public Player player;
     public Sprite altSprite;
+    public Sprite defaultSprite;
     public Image image;
     public bool attackPile;
     public void DrawCard()
@@ -16,7 +17,6 @@ public class CardPile : Hoverable
         {
             return;
         }
-        player.gameManager.canPlayCard = false;
         player.gameManager.canDrawCard = false;
         if (attackPile)
         {
@@ -50,6 +50,10 @@ public class CardPile : Hoverable
     public void UpdateSprite()
     {
         image.sprite = altSprite;
+    }
+    public void DefaultSprite()
+    {
+        image.sprite = defaultSprite;
     }
     
 }

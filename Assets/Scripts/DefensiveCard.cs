@@ -34,6 +34,7 @@ public class DefensiveCard : Card
     {
         if(hasBeenPlayed&& !gameManager.discardDefenseButton.activeInHierarchy)
         {
+            AudioManager.instance.Play("playCard");
             gameManager.discardAttackButton.SetActive(false);
             gameManager.discardAttackButtonRect.DOScale(Vector3.zero, 0f);
             gameManager.discardDefenseButton.SetActive(true);
@@ -50,9 +51,9 @@ public class DefensiveCard : Card
         }
 
         gameManager.canPlayCard = false;
-        gameManager.canDrawCard = false;
         if (player.activeDefenseCard ==null && !hasBeenPlayed)
         {
+            AudioManager.instance.Play("playCard");
             rectTransform.SetParent(gameManager.defenseSlot);
             rectTransform.DOAnchorPos(gameManager.defenseSlotPos.anchoredPosition, 0.35f).SetEase(Ease.OutQuad).OnComplete(()=> EndScreenButton());
             player.activeDefenseCard = this;    

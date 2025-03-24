@@ -296,7 +296,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8092574671331854064, guid: 321cf7b90defee54488936e43b8c1ad1, type: 3}
       propertyPath: m_text
-      value: 3
+      value: '2
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092574671331854064, guid: 321cf7b90defee54488936e43b8c1ad1, type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8092574671331854064, guid: 321cf7b90defee54488936e43b8c1ad1, type: 3}
       propertyPath: m_havePropertiesChanged
@@ -305,6 +311,10 @@ PrefabInstance:
     - target: {fileID: 8092574671331854064, guid: 321cf7b90defee54488936e43b8c1ad1, type: 3}
       propertyPath: m_isInputParsingRequired
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092574671331854064, guid: 321cf7b90defee54488936e43b8c1ad1, type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2629606300093660370, guid: 321cf7b90defee54488936e43b8c1ad1, type: 3}
@@ -368,7 +378,7 @@ MonoBehaviour:
   attackDefenseText: {fileID: 7006073180413241165}
   turnsText: {fileID: 5047757205623951615}
   turnsToUpgrade: 2
-  attackDamage: 3
+  attackDamage: 2
   attackToAdd: -2
 --- !u!114 &2321896768759252492
 MonoBehaviour:

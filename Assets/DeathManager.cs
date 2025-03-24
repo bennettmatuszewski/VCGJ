@@ -12,12 +12,14 @@ public class DeathManager : MonoBehaviour
 
     public void Restart(Animator animator)
     {
+        AudioManager.instance.Play("clickButton");
         animator.SetTrigger("Press");
         levelLoader.LoadCertainScene("Game");
         
     }
     public void HomeScreen(Animator animator)
     {
+        AudioManager.instance.Play("clickButton");
         animator.SetTrigger("Press");
         levelLoader.LoadCertainScene("Start");
     }

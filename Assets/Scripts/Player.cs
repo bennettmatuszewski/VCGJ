@@ -73,6 +73,7 @@ public class Player : MonoBehaviour
                     Debug.Log("extra attack");
                 }
             }
+            AudioManager.instance.Play("drawCard");
             RectTransform cardRect = cardInstance.GetComponent<RectTransform>();
             cardRect.anchoredPosition3D =
                 new Vector3(deckParent.anchoredPosition3D.x, deckParent.anchoredPosition3D.y, 0);
@@ -133,6 +134,7 @@ public class Player : MonoBehaviour
     }
     public void AddCardToHand(GameObject card)
     {
+        AudioManager.instance.Play("drawCard");
         GameObject cardInstance = Instantiate(card, deckParent.anchoredPosition3D, Quaternion.identity, deckParent);
         RectTransform cardRect = cardInstance.GetComponent<RectTransform>();
         cardRect.anchoredPosition3D =
@@ -157,6 +159,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int toTake)
     {
+        AudioManager.instance.Play("takeDamage");
         gameManager.gameContent.DOShakePosition(0.25f, Vector3.one * 15, 20, 90);
         playerHealth -= toTake;
         if (playerHealth<0)
@@ -174,6 +177,8 @@ public class Player : MonoBehaviour
 
     public void ResetAll()
     {
+        attackCardPile.DefaultSprite();
+        defenseCardPile.DefaultSprite();
         attackCardsInDeckForRound.Clear();
         defenseCardsInDeckForRound.Clear();
         cardsInHand.Clear();

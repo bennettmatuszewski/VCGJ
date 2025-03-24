@@ -57,11 +57,11 @@ public class GameManager : MonoBehaviour
     {
         roundText.text = "round " +(round+1) + "/15";
         roundAnim.SetTrigger("Start");
-        if (round%2==0 && maxEnemies<6)
+        if (maxEnemies<10)
         {
             maxEnemies++;
         }
-        if (round>3)
+        if (round>3 && minEnemies<8)
         {
             minEnemies++;
         }
@@ -113,6 +113,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator EndTurnCo(Animator animator)
     {
+        AudioManager.instance.Play("clickButton");
         animator.SetTrigger("Press");
         yield return new WaitForSeconds(.25f);
         endTurnButton.DOScale(Vector3.zero, .25f).SetEase(Ease.OutQuad);
@@ -133,10 +134,10 @@ public class GameManager : MonoBehaviour
             StartCoroutine(EnemiesAttack());
         }
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         canDrawCard = true;
         canPlayCard = true;
-        if (player.defenseCardsInDeckForRound.Count<=0 && player.attackCardsInDeckForRound.Count<=0)
+        if (player.defenseCardsInDeckForRound.Count<=0 && player.attackCardsInDeckForRound.Count<=0 && currentEnemy.Count>0)
         {
             player.gameManager.StartCoroutine("EndTurnButton");
         }
@@ -164,6 +165,7 @@ public class GameManager : MonoBehaviour
     
     private IEnumerator DiscardDefenseCardCo(Animator animator)
     {
+        AudioManager.instance.Play("clickButton");
         player.activeDefenseCard.rectTransform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.OutQuad);
         animator.SetTrigger("Press");
         yield return new WaitForSeconds(0.25f);
@@ -176,6 +178,7 @@ public class GameManager : MonoBehaviour
     
     private IEnumerator DiscardAttackCardCo(Animator animator)
     {
+        AudioManager.instance.Play("clickButton");
         player.activeAttackCard.rectTransform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.OutQuad);
         animator.SetTrigger("Press");
         yield return new WaitForSeconds(0.25f);
@@ -191,6 +194,7 @@ public class GameManager : MonoBehaviour
         canEndTurn = false;
         yield return new WaitForSeconds(1.5f);
         shopPanel.EnterShop();
+        AudioManager.instance.Play("roundComplete");
     }
     
     public IEnumerator EndTurnButton()

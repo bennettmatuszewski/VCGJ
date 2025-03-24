@@ -82,6 +82,7 @@ public class ShopPanel : MonoBehaviour
     
     public void ExitShop(Animator buttonAnim)
     {
+        AudioManager.instance.Play("clickButton");
         buttonAnim.SetTrigger("Press");
         StartCoroutine(NextRound());
     }

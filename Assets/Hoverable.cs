@@ -26,6 +26,7 @@ public class Hoverable : MonoBehaviour
         {
             exitTween.Kill();
         }
+        AudioManager.instance.Play("hoverCard");
         enterTween = rectTransform.DOScale(new Vector3(1.25f, 1.25f, 1.25f), 0.15f).SetEase(Ease.InOutBack);
         if (isCardPile)
         {

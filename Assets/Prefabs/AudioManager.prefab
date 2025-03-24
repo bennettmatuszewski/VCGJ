@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6875167958522168414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4547797760732206006}
+  - component: {fileID: 5025681365545671694}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4547797760732206006
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6875167958522168414}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.9692082, y: 3.41862, z: 315.7811}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5025681365545671694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6875167958522168414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73c4fe4d0e0a546b717de7af97fce9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: hoverCard
+    clip: {fileID: 8300000, guid: c4b13d384fd2eef42be61cd615e49a2e, type: 3}
+    volume: 0.639
+    pitch: 1
+    isLoop: 0
+    isSong: 0
+    randomizePitch: 0
+    source: {fileID: 0}
+  - name: playCard
+    clip: {fileID: 8300000, guid: 8b00abbdf813531408b372cc18210c9f, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    isSong: 0
+    randomizePitch: 0
+    source: {fileID: 0}
+  - name: takeDamage
+    clip: {fileID: 8300000, guid: 61fc58db9891b7040b0f7239b50b71e2, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    isSong: 0
+    randomizePitch: 0
+    source: {fileID: 0}
+  - name: clickButton
+    clip: {fileID: 8300000, guid: 28d3871e1a57210479791dfcd90e47b2, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    isSong: 0
+    randomizePitch: 0
+    source: {fileID: 0}
+  - name: roundComplete
+    clip: {fileID: 8300000, guid: d62f9d55cd3012142a41bdd307779792, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    isSong: 0
+    randomizePitch: 0
+    source: {fileID: 0}
+  - name: song
+    clip: {fileID: 8300000, guid: 653e70a3da0ba844b9ad69a7df3f63f1, type: 3}
+    volume: 0.644
+    pitch: 1
+    isLoop: 1
+    isSong: 0
+    randomizePitch: 0
+    source: {fileID: 0}
+  - name: drawCard
+    clip: {fileID: 8300000, guid: c5a7925f822c2dc489b3a0265d7f1457, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    isSong: 0
+    randomizePitch: 0
+    source: {fileID: 0}
+  - name: enemyDamage
+    clip: {fileID: 8300000, guid: 38e1580a646976f4eab0c68df59ce829, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    isSong: 0
+    randomizePitch: 0
+    source: {fileID: 0}
+  currentSongPlaying: 
+  isCrossfading: 0

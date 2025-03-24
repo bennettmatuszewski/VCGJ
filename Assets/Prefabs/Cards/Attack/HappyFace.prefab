@@ -333,7 +333,7 @@ MonoBehaviour:
   turnsText: {fileID: 3187461528555467135}
   turnsToUpgrade: 2
   attackDamage: 2
-  attackToAdd: 0
+  attackToAdd: 2
 --- !u!114 &6935569694401358923
 MonoBehaviour:
   m_ObjectHideFlags: 0

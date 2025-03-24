@@ -175,7 +175,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3
+  m_text: 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 70471d0e51f99d84d9122727f4902ec3, type: 2}
   m_sharedMaterial: {fileID: -8234370761623016165, guid: 70471d0e51f99d84d9122727f4902ec3, type: 2}
@@ -601,7 +601,7 @@ MonoBehaviour:
   healthText: {fileID: 3525161658026318974}
   attackText: {fileID: 83874211712796841}
   health: 5
-  attack: 5
+  attack: 2
 --- !u!223 &7729407563549538377
 Canvas:
   m_ObjectHideFlags: 0

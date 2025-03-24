@@ -240,7 +240,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5735376275576020658, guid: 321cf7b90defee54488936e43b8c1ad1, type: 3}
       propertyPath: m_text
-      value: all attack cards gain +1 attack by default
+      value: draw one extra attack card at the start of round
       objectReference: {fileID: 0}
     - target: {fileID: 5735376275576020658, guid: 321cf7b90defee54488936e43b8c1ad1, type: 3}
       propertyPath: m_fontSize
@@ -272,11 +272,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5735376275576020658, guid: 321cf7b90defee54488936e43b8c1ad1, type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5735376275576020658, guid: 321cf7b90defee54488936e43b8c1ad1, type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 7
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5735376275576020658, guid: 321cf7b90defee54488936e43b8c1ad1, type: 3}
       propertyPath: m_havePropertiesChanged
@@ -288,7 +288,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5735376275576020658, guid: 321cf7b90defee54488936e43b8c1ad1, type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 42
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 6303130548667773250, guid: 321cf7b90defee54488936e43b8c1ad1, type: 3}
       propertyPath: m_havePropertiesChanged

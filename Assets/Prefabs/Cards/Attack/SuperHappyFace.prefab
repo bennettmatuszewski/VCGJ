@@ -319,6 +319,10 @@ PrefabInstance:
       value: Content
       objectReference: {fileID: 0}
     - target: {fileID: 8092574671331854064, guid: 321cf7b90defee54488936e43b8c1ad1, type: 3}
+      propertyPath: m_text
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092574671331854064, guid: 321cf7b90defee54488936e43b8c1ad1, type: 3}
       propertyPath: m_havePropertiesChanged
       value: 0
       objectReference: {fileID: 0}
@@ -366,7 +370,7 @@ MonoBehaviour:
   attackDefenseText: {fileID: 5850011486285384025}
   turnsText: {fileID: 8509767466714447595}
   turnsToUpgrade: 3
-  attackDamage: 2
+  attackDamage: 1
   attackToAdd: 5
 --- !u!114 &8424808344748475799
 MonoBehaviour:

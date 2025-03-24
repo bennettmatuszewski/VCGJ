@@ -11,7 +11,7 @@ public class EnragedFace : AttackCard
         {
             if (card==player.activeDefenseCard)
             {
-                card.health += 2;
+                card.health += 5;
                 card.attackDefenseText.text = card.health.ToString();
             }
         }

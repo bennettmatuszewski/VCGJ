@@ -14,6 +14,7 @@ public class Tutorial : MonoBehaviour
     {
         if (!cantNext)
         {
+            AudioManager.instance.Play("clickButton");
             cantNext = true;
             animator.SetTrigger("Press");
             content.DOAnchorPosX(2029, 0.75f).SetEase(Ease.InOutQuad);
@@ -23,6 +24,7 @@ public class Tutorial : MonoBehaviour
     {
         if (!cantNext2)
         {
+            AudioManager.instance.Play("clickButton");
             cantNext2 = true;
             animator.SetTrigger("Press");
             content.DOAnchorPosX(4385, 0.75f).SetEase(Ease.InOutQuad);
@@ -33,6 +35,7 @@ public class Tutorial : MonoBehaviour
     {
         if (!cantExit)
         {
+            AudioManager.instance.Play("clickButton");
             cantExit = true;
             animator.SetTrigger("Press");
             ll.LoadCertainScene("Start");
